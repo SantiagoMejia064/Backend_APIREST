@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class LibroModel {
 
     @Id
-    private Integer IdLibro;
+    private Integer idLibro;
+
     private String titulo;
     private String autor;
     private String genero;

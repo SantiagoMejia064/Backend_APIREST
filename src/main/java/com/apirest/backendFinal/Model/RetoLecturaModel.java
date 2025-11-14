@@ -16,6 +16,7 @@ public class RetoLecturaModel {
 
     @Id
     private Integer idReto;
+
     private String titulo;
     private String descripcion;
     private String fechaInicio;

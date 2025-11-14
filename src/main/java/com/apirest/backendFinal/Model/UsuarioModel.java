@@ -16,6 +16,7 @@ public class UsuarioModel {
 
     @Id
     private Integer idUsuario;
+    
     private String nombreCompleto;
     private Integer edad;
     private String ocupacion;
