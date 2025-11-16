@@ -1,9 +1,20 @@
 package com.apirest.backendFinal.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.apirest.backendFinal.Model.InscripcionModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IInscripcionRepository extends JpaRepository<InscripcionModel, Integer>{
+import java.util.List;
 
+@Repository
+public interface IInscripcionRepository extends JpaRepository<InscripcionModel, Integer> {
+
+    // Para evitar inscripciones duplicadas (usuario + reto)
+    boolean existsByUsuario_IdUsuarioAndReto_IdReto(Integer idUsuario, Integer idReto);
+
+    // Todas las inscripciones de un usuario
+    List<InscripcionModel> findByUsuario_IdUsuario(Integer idUsuario);
+
+    // Todos los inscritos de un reto
+    List<InscripcionModel> findByReto_IdReto(Integer idReto);
 }

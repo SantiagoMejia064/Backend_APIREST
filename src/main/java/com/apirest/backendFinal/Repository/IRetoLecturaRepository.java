@@ -1,9 +1,9 @@
 package com.apirest.backendFinal.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.apirest.backendFinal.Model.RetoLecturaModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IRetoLecturaRepository extends JpaRepository<RetoLecturaModel, Integer>{
-
+@Repository
+public interface IRetoLecturaRepository extends JpaRepository<RetoLecturaModel, Integer> {
 }

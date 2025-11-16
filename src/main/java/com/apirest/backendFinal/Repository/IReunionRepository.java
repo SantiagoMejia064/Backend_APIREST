@@ -1,9 +1,13 @@
 package com.apirest.backendFinal.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.apirest.backendFinal.Model.ReunionModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IReunionRepository extends JpaRepository<ReunionModel, Integer>{
+import java.util.List;
 
+@Repository
+public interface IReunionRepository extends JpaRepository<ReunionModel, Integer> {
+
+    List<ReunionModel> findByLibro_IdLibro(Integer idLibro);
 }

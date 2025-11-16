@@ -1,9 +1,17 @@
 package com.apirest.backendFinal.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.apirest.backendFinal.Model.ProgresoRetoModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IProgresoRetoRepository extends JpaRepository<ProgresoRetoModel, Integer>{
+import java.util.List;
 
+@Repository
+public interface IProgresoRetoRepository extends JpaRepository<ProgresoRetoModel, Integer> {
+
+    // Progresos por inscripción
+    List<ProgresoRetoModel> findByInscripcion_IdInscripcion(Integer idInscripcion);
+
+    // Progresos por libro (dentro de retos)
+    List<ProgresoRetoModel> findByLibro_IdLibro(Integer idLibro);
 }
