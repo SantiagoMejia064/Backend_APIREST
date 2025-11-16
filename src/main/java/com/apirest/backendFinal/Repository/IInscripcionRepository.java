@@ -10,11 +10,12 @@ import java.util.List;
 public interface IInscripcionRepository extends JpaRepository<InscripcionModel, Integer> {
 
     // Para evitar inscripciones duplicadas (usuario + reto)
-    boolean existsByUsuario_IdUsuarioAndReto_IdReto(Integer idUsuario, Integer idReto);
+    boolean existsByUsuario_IdUsuarioAndRetoLectura_IdReto(Integer idUsuario, Integer idReto);
 
     // Todas las inscripciones de un usuario
     List<InscripcionModel> findByUsuario_IdUsuario(Integer idUsuario);
 
     // Todos los inscritos de un reto
-    List<InscripcionModel> findByReto_IdReto(Integer idReto);
+    List<InscripcionModel> findByRetoLectura_IdReto(Integer idReto);
+
 }

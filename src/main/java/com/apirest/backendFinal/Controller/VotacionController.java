@@ -29,7 +29,7 @@ public class VotacionController {
     public ResponseEntity<String> crearVotacion(@RequestBody VotacionModel votacion) {
 
         Integer idUsuario   = votacion.getUsuario().getIdUsuario();
-        Integer idPropuesta = votacion.getPropuestaLibro().getIdPropuesta();
+        Integer idPropuesta = votacion.getPropuesta().getIdPropuesta();
 
         if (!usuarioService.existsById(idUsuario)) {
             return ResponseEntity.badRequest().body("El usuario no existe");

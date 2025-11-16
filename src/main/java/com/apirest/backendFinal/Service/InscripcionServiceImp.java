@@ -41,7 +41,7 @@ public class InscripcionServiceImp implements IInscripcionService {
 
     @Override
     public boolean usuarioYaInscrito(Integer idUsuario, Integer idReto) {
-        return inscripcionRepository.existsByUsuario_IdUsuarioAndReto_IdReto(idUsuario, idReto);
+        return inscripcionRepository.existsByUsuario_IdUsuarioAndRetoLectura_IdReto(idUsuario, idReto);
     }
 
     @Override
@@ -51,6 +51,6 @@ public class InscripcionServiceImp implements IInscripcionService {
 
     @Override
     public List<InscripcionModel> listarPorReto(Integer idReto) {
-        return inscripcionRepository.findByReto_IdReto(idReto);
+        return inscripcionRepository.findByRetoLectura_IdReto(idReto);
     }
 }

@@ -25,7 +25,7 @@ public class VotacionModel {
 
     @ManyToOne
     @JoinColumn(name = "idPropuesta")
-    private PropuestaLibroModel propuestaLibro;
+    private PropuestaLibroModel propuesta;
 
     private String fecha;
     private String voto;

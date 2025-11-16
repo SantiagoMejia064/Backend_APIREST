@@ -45,6 +45,6 @@ public class RetoLecturaServiceImp implements IRetoLecturaService {
 
     @Override
     public boolean retoTieneInscritos(Integer idReto) {
-        return !inscripcionRepository.findByReto_IdReto(idReto).isEmpty();
+        return !inscripcionRepository.findByRetoLectura_IdReto(idReto).isEmpty();
     }
 }
