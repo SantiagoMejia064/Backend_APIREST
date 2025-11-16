@@ -1,5 +1,9 @@
 package com.apirest.backendFinal.Repository;
 
-public class IValoracionRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.apirest.backendFinal.Model.ValoracionModel;
+
+public interface IValoracionRepository{
+
 }

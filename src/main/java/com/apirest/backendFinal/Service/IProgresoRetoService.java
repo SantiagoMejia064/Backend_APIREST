@@ -1,5 +1,5 @@
 package com.apirest.backendFinal.Service;
 
-public class IProgresoRetoService {
+public interface IProgresoRetoService {
     
 }

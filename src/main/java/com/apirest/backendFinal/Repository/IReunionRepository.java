@@ -1,5 +1,9 @@
 package com.apirest.backendFinal.Repository;
 
-public class IReunionRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.apirest.backendFinal.Model.ReunionModel;
+
+public interface IReunionRepository extends JpaRepository<ReunionModel, Integer>{
+
 }

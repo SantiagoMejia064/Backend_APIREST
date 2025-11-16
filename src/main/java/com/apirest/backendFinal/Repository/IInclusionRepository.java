@@ -1,5 +1,5 @@
 package com.apirest.backendFinal.Repository;
 
-public class IInclusionRepository {
+public interface IInclusionRepository {
     
 }

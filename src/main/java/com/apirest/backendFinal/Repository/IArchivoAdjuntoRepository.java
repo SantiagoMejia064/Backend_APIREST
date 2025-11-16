@@ -1,5 +1,9 @@
 package com.apirest.backendFinal.Repository;
 
-public class IArchivoAdjuntoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.apirest.backendFinal.Model.ArchivoAdjuntoModel;
+
+public interface IArchivoAdjuntoRepository extends JpaRepository<ArchivoAdjuntoModel, Integer>{
     
 }
