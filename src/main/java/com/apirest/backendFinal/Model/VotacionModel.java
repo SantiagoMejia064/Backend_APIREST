@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,6 @@ public class VotacionModel {
     @JoinColumn(name = "idPropuesta")
     private PropuestaLibroModel propuesta;
 
-    private String fecha;
+    private LocalDate fecha;
     private String voto;
 }

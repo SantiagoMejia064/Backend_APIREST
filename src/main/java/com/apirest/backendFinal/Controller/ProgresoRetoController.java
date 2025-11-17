@@ -21,7 +21,7 @@ public class ProgresoRetoController {
     @Autowired
     private IInscripcionService inscripcionService;
 
-    // Registrar progreso
+    // Registrar progreso (con validaciones de negocio)
     @PostMapping
     public ResponseEntity<String> registrarProgreso(@RequestBody ProgresoRetoModel progreso) {
 
@@ -85,5 +85,12 @@ public class ProgresoRetoController {
 
         progresoService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // CRUD "crudo" para progreso (sin validaciones extra)
+    @PostMapping("/crud")
+    public ResponseEntity<ProgresoRetoModel> guardar(@RequestBody ProgresoRetoModel progresoRequest) {
+        ProgresoRetoModel guardado = progresoService.guardar(progresoRequest);
+        return ResponseEntity.ok(guardado);
     }
 }

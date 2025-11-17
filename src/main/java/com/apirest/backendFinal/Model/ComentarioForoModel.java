@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +36,6 @@ public class ComentarioForoModel {
     @JoinColumn(name = "idForo")
     private ForoModel foro;
 
-    private String fechaPublicacion;
+    private LocalDate fechaPublicacion;
     private String contenido;
 }

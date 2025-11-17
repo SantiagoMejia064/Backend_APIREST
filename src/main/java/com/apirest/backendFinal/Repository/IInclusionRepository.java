@@ -13,4 +13,7 @@ public interface IInclusionRepository extends JpaRepository<InclusionModel, Incl
     List<InclusionModel> findByReto_IdReto(Integer idReto);
 
     List<InclusionModel> findByLibro_IdLibro(Integer idLibro);
+
+    //Para saber si existe un libro en particular dentro de ese reto
+    boolean existsByReto_IdRetoAndLibro_IdLibro(Integer idReto, Integer idLibro);
 }

@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,5 +29,5 @@ public class LibroModel {
     private String sinopsis;
     private String portada; // Representa la imagen binaria
     private String estadoLectura;
-    private String fechaSeleccion;
+    private LocalDate fechaSeleccion;
 }

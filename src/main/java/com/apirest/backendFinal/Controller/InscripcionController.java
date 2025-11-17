@@ -88,19 +88,10 @@ public class InscripcionController {
         return ResponseEntity.ok(inscripcionService.listarPorReto(idReto));
     }
 
-    // "Eliminar" inscripción → cambiar a estado cancelada
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> cancelarInscripcion(@PathVariable Integer id) {
-
-        Optional<InscripcionModel> inscripcionOpt = inscripcionService.obtenerPorId(id);
-        if (inscripcionOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        InscripcionModel inscripcion = inscripcionOpt.get();
-        inscripcion.setEstadoInscripcion("cancelada");
-        inscripcionService.guardar(inscripcion);
-
-        return ResponseEntity.ok("Inscripción cambiada a estado 'cancelada' (no se elimina físicamente)");
+    //"Eliminar" inscripción, la cambia a estado cancelada
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity<InscripcionModel> cancelar(@PathVariable Integer id) {
+        InscripcionModel cancelada = inscripcionService.cancelarInscripcion(id);
+        return ResponseEntity.ok(cancelada);
     }
 }

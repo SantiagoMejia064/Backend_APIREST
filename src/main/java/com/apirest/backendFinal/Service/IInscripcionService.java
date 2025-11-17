@@ -6,6 +6,10 @@ import java.util.Optional;
 
 public interface IInscripcionService {
 
+    InscripcionModel inscribir(InscripcionModel inscripcion);
+
+    InscripcionModel cancelarInscripcion(Integer id);
+
     InscripcionModel guardar(InscripcionModel inscripcion);
 
     List<InscripcionModel> listar();

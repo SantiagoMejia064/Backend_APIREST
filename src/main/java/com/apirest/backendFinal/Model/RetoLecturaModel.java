@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,6 @@ public class RetoLecturaModel {
 
     private String titulo;
     private String descripcion;
-    private String fechaInicio;
-    private String fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
 }

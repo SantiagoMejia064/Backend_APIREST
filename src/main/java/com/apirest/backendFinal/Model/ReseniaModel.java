@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +32,7 @@ public class ReseniaModel {
     @JoinColumn(name = "idUsuario")
     private UsuarioModel usuario;
 
-    private String fecha;
+    private LocalDate fecha;
     private String opinion;
     private Integer calificacion;
 }

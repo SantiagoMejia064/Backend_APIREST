@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +28,7 @@ public class ReunionModel {
     @JoinColumn(name = "idLibro")
     private LibroModel libro;
 
-    private String fecha;
+    private LocalDate fecha;
     private String hora;
     private String modalidad;
     private String lugar_o_enlace;
