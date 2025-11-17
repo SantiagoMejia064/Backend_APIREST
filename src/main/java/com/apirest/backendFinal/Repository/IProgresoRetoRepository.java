@@ -16,9 +16,7 @@ public interface IProgresoRetoRepository extends JpaRepository<ProgresoRetoModel
     // Progresos por libro (dentro de retos)
     List<ProgresoRetoModel> findByLibro_IdLibro(Integer idLibro);
 
-    // Para saber si ya hay progreso para (inscripción + libro)
-    Optional<ProgresoRetoModel> findByInscripcion_IdInscripcionAndLibro_IdLibro(
-            Integer idInscripcion,
-            Integer idLibro
-    );
+    List<ProgresoRetoModel> findByInscripcion_IdInscripcionAndLibro_IdLibro(Integer idInscripcion, Integer idLibro);
+
+    boolean existsByInscripcion_IdInscripcionAndLibro_IdLibro(Integer idInscripcion, Integer idLibro);
 }

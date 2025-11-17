@@ -1,5 +1,7 @@
 package com.apirest.backendFinal.Controller;
 
+import com.apirest.backendFinal.Exception.RecursoNoEncontradoException;
+import com.apirest.backendFinal.Model.InscripcionModel;
 import com.apirest.backendFinal.Model.ProgresoRetoModel;
 import com.apirest.backendFinal.Service.IProgresoRetoService;
 import com.apirest.backendFinal.Service.IInscripcionService;
@@ -22,22 +24,41 @@ public class ProgresoRetoController {
     private IInscripcionService inscripcionService;
 
     // Registrar progreso (con validaciones de negocio)
+    // ✅ Registrar progreso (versión corregida)
     @PostMapping
     public ResponseEntity<String> registrarProgreso(@RequestBody ProgresoRetoModel progreso) {
 
-        // Validar inscripción existente
-        if (!inscripcionService.existsById(progreso.getInscripcion().getIdInscripcion())) {
-            return ResponseEntity.badRequest().body("No existe la inscripción asociada");
+        // Validar que vengan los IDs en el JSON
+        if (progreso.getInscripcion() == null || progreso.getInscripcion().getIdInscripcion() == null) {
+            return ResponseEntity.badRequest().body("Debe enviar 'inscripcion.idInscripcion'.");
         }
 
-        // Validar que ese libro pertenece al reto
-        Integer idReto = progreso.getInscripcion().getRetoLectura().getIdReto();
+        if (progreso.getLibro() == null || progreso.getLibro().getIdLibro() == null) {
+            return ResponseEntity.badRequest().body("Debe enviar 'libro.idLibro'.");
+        }
+
+        Integer idInscripcion = progreso.getInscripcion().getIdInscripcion();
         Integer idLibro = progreso.getLibro().getIdLibro();
 
+        // 1️⃣ Cargar la inscripción completa desde la BD
+        InscripcionModel inscripcion = inscripcionService.obtenerPorId(idInscripcion)
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException("No existe la inscripción con id: " + idInscripcion));
+
+        // 2️⃣ Sacar el reto desde la inscripción
+        // Cambia getReto() por getRetoLectura() si tu entidad se llama así
+        Integer idReto = inscripcion.getRetoLectura().getIdReto();
+
+        // 3️⃣ Validar que el libro esté vinculado a ese reto
         if (!progresoService.libroPerteneceAReto(idLibro, idReto)) {
-            return ResponseEntity.badRequest().body("El libro no pertenece al reto seleccionado");
+            return ResponseEntity.badRequest()
+                    .body("El libro no pertenece al reto asociado a la inscripción.");
         }
 
+        // 4️⃣ Reasociar la inscripción "completa" al progreso (no solo el id)
+        progreso.setInscripcion(inscripcion);
+
+        // 5️⃣ Guardar el progreso
         progresoService.guardar(progreso);
         return ResponseEntity.ok("Progreso registrado correctamente");
     }
