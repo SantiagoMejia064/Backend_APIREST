@@ -38,7 +38,7 @@ public class ReseniaController {
             return ResponseEntity.badRequest().body("El libro no existe");
         }
 
-        // Validar calificación 1–5
+        //Validar calificación 1–5
         if (resenia.getCalificacion() < 1 || resenia.getCalificacion() > 5) {
             return ResponseEntity.badRequest().body("La calificación debe estar entre 1 y 5");
         }
@@ -77,7 +77,7 @@ public class ReseniaController {
             return ResponseEntity.notFound().build();
         }
 
-        // Validar nuevamente calificación
+        //Validar nuevamente calificación
         if (datos.getCalificacion() < 1 || datos.getCalificacion() > 5) {
             return ResponseEntity.badRequest().body("La calificación debe estar entre 1 y 5");
         }

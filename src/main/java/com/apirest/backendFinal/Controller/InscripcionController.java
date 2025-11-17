@@ -26,11 +26,11 @@ public class InscripcionController {
     @Autowired
     private IRetoLecturaService retoLecturaService;
 
-    // Crear inscripción (lector → reto)
+    //Crear inscripción de lector -> reto
     @PostMapping
     public ResponseEntity<String> crearInscripcion(@RequestBody InscripcionModel inscripcion) {
 
-        // Validar existencia de usuario y reto
+        //Validamos la existencia del usuario y reto
         Optional<UsuarioModel> usuarioOpt = usuarioService.obtenerPorId(inscripcion.getUsuario().getIdUsuario());
         if (usuarioOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("El usuario no existe");
@@ -42,18 +42,18 @@ public class InscripcionController {
 
         UsuarioModel usuario = usuarioOpt.get();
 
-        // Validar rol lector
+        //Validamos el rol lector
         if (!"lector".equalsIgnoreCase(usuario.getRol())) {
             return ResponseEntity.badRequest().body("Solo los usuarios con rol 'lector' pueden inscribirse");
         }
 
-        // Validar inscripción no duplicada
+        //Validamos inscripción no duplicada
         if (inscripcionService.usuarioYaInscrito(usuario.getIdUsuario(),
                 inscripcion.getRetoLectura().getIdReto())) {
             return ResponseEntity.badRequest().body("El usuario ya está inscrito en este reto");
         }
 
-        // Estado por defecto: activa (si viene nulo podrías setearlo aquí)
+        //Vean, aqui hay estado por defecto: activa (si viene nulo se puede setear aquí)
         if (inscripcion.getEstadoInscripcion() == null) {
             inscripcion.setEstadoInscripcion("activa");
         }
@@ -62,13 +62,13 @@ public class InscripcionController {
         return ResponseEntity.ok("Inscripción creada correctamente");
     }
 
-    // Listar todas las inscripciones
+    //Listar todas las inscripciones
     @GetMapping
     public ResponseEntity<List<InscripcionModel>> listarInscripciones() {
         return ResponseEntity.ok(inscripcionService.listar());
     }
 
-    // Obtener inscripción por id
+    //Obtener inscripción por id
     @GetMapping("/{id}")
     public ResponseEntity<InscripcionModel> obtenerPorId(@PathVariable Integer id) {
         Optional<InscripcionModel> inscripcion = inscripcionService.obtenerPorId(id);
@@ -76,19 +76,19 @@ public class InscripcionController {
                           .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Listar inscripciones por usuario
+    //Listar inscripciones por usuario
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<List<InscripcionModel>> listarPorUsuario(@PathVariable Integer idUsuario) {
         return ResponseEntity.ok(inscripcionService.listarPorUsuario(idUsuario));
     }
 
-    // Listar inscripciones por reto
+    //Listar inscripciones por reto
     @GetMapping("/reto/{idReto}")
     public ResponseEntity<List<InscripcionModel>> listarPorReto(@PathVariable Integer idReto) {
         return ResponseEntity.ok(inscripcionService.listarPorReto(idReto));
     }
 
-    //"Eliminar" inscripción, la cambia a estado cancelada
+    //"Eliminar" inscripción, lo que hace es que la cambia a estado cancelada
     @PutMapping("/{id}/cancelar")
     public ResponseEntity<InscripcionModel> cancelar(@PathVariable Integer id) {
         InscripcionModel cancelada = inscripcionService.cancelarInscripcion(id);

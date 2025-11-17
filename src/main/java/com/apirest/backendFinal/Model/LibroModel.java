@@ -25,9 +25,9 @@ public class LibroModel {
     private String titulo;
     private String autor;
     private String genero;
-    private String anioPublicacion; // Usando String para representar fechas
+    private String anioPublicacion; //Usando String para representar fechas
     private String sinopsis;
-    private String portada; // Representa la imagen binaria
+    private String portada; //Representa la imagen binaria
     private String estadoLectura;
     private LocalDate fechaSeleccion;
 }

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Clave primaria compuesta de Inclusion (idReto, idLibro)
+//Clave primaria compuesta de Inclusion (idReto, idLibro)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

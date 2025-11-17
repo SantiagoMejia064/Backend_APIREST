@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Clave primaria compuesta de la tabla valoracion (idResenia, idUsuario)
+//Clave primaria compuesta de la tabla valoracion (idResenia, idUsuario)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

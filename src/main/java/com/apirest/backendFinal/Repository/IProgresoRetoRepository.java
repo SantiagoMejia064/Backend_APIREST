@@ -10,10 +10,10 @@ import java.util.Optional;
 @Repository
 public interface IProgresoRetoRepository extends JpaRepository<ProgresoRetoModel, Integer> {
 
-    // Progresos por inscripción
+    //Progresos por inscripción
     List<ProgresoRetoModel> findByInscripcion_IdInscripcion(Integer idInscripcion);
 
-    // Progresos por libro (dentro de retos)
+    //Progresos por libro (dentro de retos)
     List<ProgresoRetoModel> findByLibro_IdLibro(Integer idLibro);
 
     List<ProgresoRetoModel> findByInscripcion_IdInscripcionAndLibro_IdLibro(Integer idInscripcion, Integer idLibro);

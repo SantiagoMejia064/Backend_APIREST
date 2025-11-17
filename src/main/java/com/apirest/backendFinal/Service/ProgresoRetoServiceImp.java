@@ -55,7 +55,7 @@ public class ProgresoRetoServiceImp implements IProgresoRetoService {
 
     @Override
     public boolean libroPerteneceAReto(Integer idLibro, Integer idReto) {
-        // Versión más directa usando el exists del repositorio de inclusión
+        //Versión más directa usando el exists del repositorio de inclusión
         return inclusionRepository.existsByReto_IdRetoAndLibro_IdLibro(idReto, idLibro);
     }
 
@@ -71,19 +71,19 @@ public class ProgresoRetoServiceImp implements IProgresoRetoService {
         Integer idInscripcion = progresoRequest.getInscripcion().getIdInscripcion();
         Integer idLibro = progresoRequest.getLibro().getIdLibro();
 
-        // 1- Validar que la inscripción exista
+        //1- Validar que la inscripción exista
         InscripcionModel inscripcion = inscripcionRepo.findById(idInscripcion)
                 .orElseThrow(() -> new RecursoNoEncontradoException(
                         "Inscripción no encontrada con id: " + idInscripcion
                 ));
 
-        // 2- Validar que el libro exista
+        //2- Validar que el libro exista
         LibroModel libro = libroRepo.findById(idLibro)
                 .orElseThrow(() -> new RecursoNoEncontradoException(
                         "Libro no encontrado con id: " + idLibro
                 ));
 
-        // 3- Validar que el libro esté asociado al reto de la inscripción
+        //3- Validamos que el libro esté asociado al reto de la inscripción
         Integer idReto = inscripcion.getRetoLectura().getIdReto();
 
         boolean libroPerteneceAlReto = inclusionRepository
@@ -96,25 +96,25 @@ public class ProgresoRetoServiceImp implements IProgresoRetoService {
             );
         }
 
-        // 4- Buscar si ya existe un progreso para (inscripción + libro)
-        // ⚠ OJO: en IProgresoRetoRepository este método debe devolver List<ProgresoRetoModel>
-        // List<ProgresoRetoModel> findByInscripcion_IdInscripcionAndLibro_IdLibro(Integer idInscripcion, Integer idLibro);
+        //4- Buscamos si ya existe un progreso para (inscripción + libro)
+        //en IProgresoRetoRepository este método debe devolver List<ProgresoRetoModel>
+        //List<ProgresoRetoModel> findByInscripcion_IdInscripcionAndLibro_IdLibro(Integer idInscripcion, Integer idLibro);
         List<ProgresoRetoModel> existentes =
                 progresoRetoRepository.findByInscripcion_IdInscripcionAndLibro_IdLibro(idInscripcion, idLibro);
 
         ProgresoRetoModel progreso;
 
         if (existentes.isEmpty()) {
-            // No existía, entonces creamos uno nuevo
+            //Como no existía entonces creamos uno nuevo
             progreso = new ProgresoRetoModel();
             progreso.setInscripcion(inscripcion);
             progreso.setLibro(libro);
         } else {
-            // Ya existía al menos uno: nos quedamos con el más reciente
-            // (por simplicidad, el último de la lista)
+            //Ya existía al menos uno entonces nos quedamos con el más reciente
+            //por simplicidad, el último de la lista (pa que no se nos olvide)
             progreso = existentes.get(existentes.size() - 1);
 
-            // Si hay más de uno, opcionalmente podemos limpiar los demás
+            //Si hay más de uno, opcionalmente podemos limpiar los demás
             if (existentes.size() > 1) {
                 for (int i = 0; i < existentes.size() - 1; i++) {
                     progresoRetoRepository.delete(existentes.get(i));
@@ -122,13 +122,13 @@ public class ProgresoRetoServiceImp implements IProgresoRetoService {
             }
         }
 
-        // Actualizamos el porcentaje (sea nuevo o existente)
+        //Actualizamos el porcentaje, sea nuevo o existente
         progreso.setPorcentajeAvance(progresoRequest.getPorcentajeAvance());
 
-        // 5- Siempre actualizamos la fecha
+        //5- Siempre actualizamos la fecha
         progreso.setFechaActualizacion(LocalDate.now());
 
-        // El estado lo controla el trigger 'trg_progreso_estado_automatico' en la BD.
+        //El estado lo controla el trigger 'trg_progreso_estado_automatico' en la BD
 
         return progresoRetoRepository.save(progreso);
     }

@@ -85,7 +85,7 @@ public class InscripcionServiceImp implements IInscripcionService {
         //validación de rol
         if (!"lector".equalsIgnoreCase(usuario.getRol())) {
             throw new RuntimeException("Solo usuarios con rol LECTOR pueden inscribirse.");
-            // o new ReglaNegocioException(...) si ya creaste la clase
+            
         }
 
         retoLecturaRepository.findById(idReto)

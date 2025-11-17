@@ -17,7 +17,7 @@ public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    // Crear usuario
+    //Crear usuario
     @PostMapping
     public ResponseEntity<UsuarioModel> crearUsuario(@RequestBody UsuarioModel usuario) {
 
@@ -30,13 +30,13 @@ public class UsuarioController {
         return ResponseEntity.ok(creado);
     }
 
-    // Listar todos
+    //Listar todos
     @GetMapping
     public ResponseEntity<List<UsuarioModel>> listarUsuarios() {
         return ResponseEntity.ok(usuarioService.listar());
     }
 
-    // Obtener por id
+    //Obtener por id
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioModel> obtenerPorId(@PathVariable Integer id) {
         Optional<UsuarioModel> usuario = usuarioService.obtenerPorId(id);
@@ -44,13 +44,13 @@ public class UsuarioController {
                       .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Listar por rol (lector, moderador, administrador)
+    //Listar por rol (lector, moderador, administrador)
     @GetMapping("/rol/{rol}")
     public ResponseEntity<List<UsuarioModel>> listarPorRol(@PathVariable String rol) {
         return ResponseEntity.ok(usuarioService.listarPorRol(rol));
     }
 
-    // Actualizar usuario
+    //Actualizar usuario
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioModel> actualizarUsuario(@PathVariable Integer id,
                                                           @RequestBody UsuarioModel datos) {
@@ -64,7 +64,7 @@ public class UsuarioController {
         return ResponseEntity.ok(actualizado);
     }
 
-    // Eliminar usuario
+    //Eliminar usuario
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id) {
 

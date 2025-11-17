@@ -23,12 +23,11 @@ public class ProgresoRetoController {
     @Autowired
     private IInscripcionService inscripcionService;
 
-    // Registrar progreso (con validaciones de negocio)
-    // ✅ Registrar progreso (versión corregida)
+    //Registrar progreso con validaciones de negocio
     @PostMapping
     public ResponseEntity<String> registrarProgreso(@RequestBody ProgresoRetoModel progreso) {
 
-        // Validar que vengan los IDs en el JSON
+        //Validar que vengan los IDs en el JSON
         if (progreso.getInscripcion() == null || progreso.getInscripcion().getIdInscripcion() == null) {
             return ResponseEntity.badRequest().body("Debe enviar 'inscripcion.idInscripcion'.");
         }
@@ -40,36 +39,35 @@ public class ProgresoRetoController {
         Integer idInscripcion = progreso.getInscripcion().getIdInscripcion();
         Integer idLibro = progreso.getLibro().getIdLibro();
 
-        // 1️⃣ Cargar la inscripción completa desde la BD
+        //Primero, cargar la inscripción completa desde la BD
         InscripcionModel inscripcion = inscripcionService.obtenerPorId(idInscripcion)
                 .orElseThrow(() ->
                         new RecursoNoEncontradoException("No existe la inscripción con id: " + idInscripcion));
 
-        // 2️⃣ Sacar el reto desde la inscripción
-        // Cambia getReto() por getRetoLectura() si tu entidad se llama así
+        //Segundo, sacamos el reto desde la inscripción
         Integer idReto = inscripcion.getRetoLectura().getIdReto();
 
-        // 3️⃣ Validar que el libro esté vinculado a ese reto
+        //Tercero, luego Validamos que el libro esté vinculado a ese reto
         if (!progresoService.libroPerteneceAReto(idLibro, idReto)) {
             return ResponseEntity.badRequest()
                     .body("El libro no pertenece al reto asociado a la inscripción.");
         }
 
-        // 4️⃣ Reasociar la inscripción "completa" al progreso (no solo el id)
+        //Cuarto, reasociamos la inscripción "completa" al progreso y no solo el id
         progreso.setInscripcion(inscripcion);
 
-        // 5️⃣ Guardar el progreso
+        //Quinto, guardamos el progreso y ya
         progresoService.guardar(progreso);
         return ResponseEntity.ok("Progreso registrado correctamente");
     }
 
-    // Listar todos los progresos
+    //Listar todos los progresos
     @GetMapping
     public ResponseEntity<List<ProgresoRetoModel>> listar() {
         return ResponseEntity.ok(progresoService.listar());
     }
 
-    // Buscar por ID
+    //Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<ProgresoRetoModel> obtener(@PathVariable Integer id) {
         Optional<ProgresoRetoModel> progreso = progresoService.obtenerPorId(id);
@@ -77,13 +75,13 @@ public class ProgresoRetoController {
                        .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Listar por inscripción
+    //Listar por inscripción
     @GetMapping("/inscripcion/{id}")
     public ResponseEntity<List<ProgresoRetoModel>> listarPorInscripcion(@PathVariable Integer id) {
         return ResponseEntity.ok(progresoService.listarPorInscripcion(id));
     }
 
-    // Actualizar progreso
+    //Actualizar progreso
     @PutMapping("/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id,
                                              @RequestBody ProgresoRetoModel datos) {
@@ -97,7 +95,7 @@ public class ProgresoRetoController {
         return ResponseEntity.ok("Progreso actualizado correctamente");
     }
 
-    // Eliminar progreso
+    //Eliminar progreso
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         if (!progresoService.existsById(id)) {
@@ -108,7 +106,7 @@ public class ProgresoRetoController {
         return ResponseEntity.noContent().build();
     }
 
-    // CRUD "crudo" para progreso (sin validaciones extra)
+    //CRUD "crudo" para progreso y sin validaciones extra
     @PostMapping("/crud")
     public ResponseEntity<ProgresoRetoModel> guardar(@RequestBody ProgresoRetoModel progresoRequest) {
         ProgresoRetoModel guardado = progresoService.guardar(progresoRequest);

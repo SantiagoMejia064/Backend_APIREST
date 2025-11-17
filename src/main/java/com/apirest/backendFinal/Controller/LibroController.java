@@ -17,20 +17,20 @@ public class LibroController {
     @Autowired
     private ILibroService libroService;
 
-    // Crear libro
+    //Crear libro
     @PostMapping
     public ResponseEntity<LibroModel> crearLibro(@RequestBody LibroModel libro) {
         LibroModel creado = libroService.guardar(libro);
         return ResponseEntity.ok(creado);
     }
 
-    // Listar todos los libros
+    //Listar todos los libros
     @GetMapping
     public ResponseEntity<List<LibroModel>> listar() {
         return ResponseEntity.ok(libroService.listar());
     }
 
-    // Buscar por ID
+    //Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<LibroModel> obtener(@PathVariable Integer id) {
         Optional<LibroModel> libro = libroService.obtenerPorId(id);
@@ -38,13 +38,13 @@ public class LibroController {
                     .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Buscar por género
+    //Buscar por género
     @GetMapping("/genero/{genero}")
     public ResponseEntity<List<LibroModel>> buscarPorGenero(@PathVariable String genero) {
         return ResponseEntity.ok(libroService.listarPorGenero(genero));
     }
 
-    // Actualizar libro
+    //Actualizar libro
     @PutMapping("/{id}")
     public ResponseEntity<LibroModel> actualizar(@PathVariable Integer id,
                                                  @RequestBody LibroModel datos) {
@@ -56,7 +56,7 @@ public class LibroController {
         return ResponseEntity.ok(libroService.guardar(datos));
     }
 
-    // Eliminar libro
+    //Eliminar libro
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         if (!libroService.existsById(id)) {

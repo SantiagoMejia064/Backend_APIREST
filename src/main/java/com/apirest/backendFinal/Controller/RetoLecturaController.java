@@ -17,20 +17,20 @@ public class RetoLecturaController {
     @Autowired
     private IRetoLecturaService retoLecturaService;
 
-    // Crear reto
+    //Crear reto
     @PostMapping
     public ResponseEntity<RetoLecturaModel> crearReto(@RequestBody RetoLecturaModel reto) {
         RetoLecturaModel creado = retoLecturaService.guardar(reto);
         return ResponseEntity.ok(creado);
     }
 
-    // Listar todos los retos
+    //Listar todos los retos
     @GetMapping
     public ResponseEntity<List<RetoLecturaModel>> listarRetos() {
         return ResponseEntity.ok(retoLecturaService.listar());
     }
 
-    // Obtener reto por id
+    //Obtener reto por id
     @GetMapping("/{id}")
     public ResponseEntity<RetoLecturaModel> obtenerPorId(@PathVariable Integer id) {
         Optional<RetoLecturaModel> reto = retoLecturaService.obtenerPorId(id);
@@ -38,7 +38,7 @@ public class RetoLecturaController {
                    .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Actualizar reto
+    //Actualizar reto
     @PutMapping("/{id}")
     public ResponseEntity<RetoLecturaModel> actualizarReto(@PathVariable Integer id,
                                                            @RequestBody RetoLecturaModel datos) {
@@ -52,7 +52,7 @@ public class RetoLecturaController {
         return ResponseEntity.ok(actualizado);
     }
 
-    // Eliminar reto (solo si no tiene inscritos)
+    //Eliminar reto (solo si no tiene inscritos)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarReto(@PathVariable Integer id) {
 

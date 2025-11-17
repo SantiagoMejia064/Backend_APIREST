@@ -25,6 +25,6 @@ public class UsuarioModel {
     private String ocupacion;
     private String correoElectronico;
     private Integer telefono;
-    private String rol;  // Asumimos que es un String, ya que el ENUM es solo en la DB
+    private String rol;  //Asumamos que es un String, ya que el ENUM es solo en la DB
 }
 

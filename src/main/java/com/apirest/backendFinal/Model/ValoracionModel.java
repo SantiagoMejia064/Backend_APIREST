@@ -7,23 +7,23 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "valoracion")
-@IdClass(ValoracionId.class)   // PK compuesta
+@IdClass(ValoracionId.class) //PK compuesta
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValoracionModel {
 
-    // Parte 1 de la PK: idResenia
+    //Parte 1 de la PK: idResenia
     @Id
     @Column(name = "idResenia")
     private Integer idResenia;
 
-    // Parte 2 de la PK: idUsuario
+    //Parte 2 de la PK: idUsuario
     @Id
     @Column(name = "idUsuario")
     private Integer idUsuario;
 
-    // Relaciones (FK) reutilizando esas mismas columnas
+    //Relaciones FK reutilizando esas mismas columnas
     @ManyToOne
     @JoinColumn(name = "idResenia", insertable = false, updatable = false)
     private ReseniaModel resenia;
@@ -32,5 +32,5 @@ public class ValoracionModel {
     @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
     private UsuarioModel usuario;
 
-    private String utilidad; // ENUM('0','1') en la BD
+    private String utilidad; //ENUM('0','1') en la BD (pa que no se olviden)
 }
